@@ -5,32 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
+        /* Basic Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
+        
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e1f29, #3a3b48);
+            color: #d0d1d6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Header Styling */
         header {
-            background-color: #4a90e2;
-            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
             padding: 20px;
             text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        /* Main Container Styling */
         main {
             max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
         }
-        h1 {
-            color: #4a90e2;
+
+        /* Heading and Paragraph Styling */
+        h1, h2, h3 {
+            color: #a0e9fd;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
+
         p {
             line-height: 1.6;
+            color: #d0d1d6;
+            margin-bottom: 20px;
+        }
+
+        /* Link Styling */
+        a {
+            color: #f4a261;
+            text-decoration: none;
+        }
+
+        /* Animation */
+        h1, h2 {
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -41,13 +80,14 @@
 </header>
 
 <main>
-    <h2>Hello! I'm [Your Name]</h2>
-    <p>Welcome to my personal webpage</p>
+    <h2>Hello! I'm Chandrakanth Pokuru</h2>
+    <p>Welcome to my personal webpage! I'm a passionate software developer and tech enthusiast with a love for pushing the boundaries of innovation.</p>
     
     <h3>Background</h3>
-    
+    <p>I'm experienced in various fields such as AI, web development, and open-source projects. I've worked on numerous projects where I combined creativity with technology to build impactful solutions.</p>
     
     <h3>Get in Touch</h3>
+    <p>Feel free to connect with me on <a href="https://github.com/cpokuru" target="_blank">GitHub</a> or reach out via email at <a href="mailto:cpokuru@example.com">cpokuru@example.com</a>.</p>
 </main>
 
 </body>
