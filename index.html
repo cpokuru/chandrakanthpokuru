@@ -1,95 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
-    <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* Body Styling */
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1e1f29, #3a3b48);
-            color: #d0d1d6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio website for Chandrakanth Pokuru" />
+  <title>Chandrakanth Pokuru | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --text-primary: #e6edf3;
+      --text-secondary: #9da7b2;
+      --accent-blue: #58a6ff;
+      --accent-orange: #f78166;
+      --border: #30363d;
+      --card-shadow: 0 12px 32px rgba(1, 4, 9, 0.45);
+    }
 
-        /* Header Styling */
-        header {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* Main Container Styling */
-        main {
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        /* Heading and Paragraph Styling */
-        h1, h2, h3 {
-            color: #a0e9fd;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(150deg, var(--bg-primary), var(--bg-secondary));
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
 
-        p {
-            line-height: 1.6;
-            color: #d0d1d6;
-            margin-bottom: 20px;
-        }
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
 
-        /* Link Styling */
-        a {
-            color: #f4a261;
-            text-decoration: none;
-        }
+    a:hover {
+      color: #7cb7ff;
+    }
 
-        /* Animation */
-        h1, h2 {
-            animation: fadeIn 1.5s ease;
-        }
+    .container {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(13, 17, 23, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 12px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .menu-toggle {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 0 auto;
+      background: currentColor;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      position: absolute;
+      top: 69px;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      padding: 16px 4vw 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links.show {
+      display: flex;
+    }
+
+    .nav-links a {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    section {
+      padding: 84px 0;
+    }
+
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      animation: heroEnter 0.9s ease-out both;
+    }
+
+    .eyebrow {
+      color: var(--accent-orange);
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: clamp(1rem, 2.8vw, 1.35rem);
+      color: var(--text-secondary);
+      min-height: 1.8em;
+      margin-bottom: 28px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.6ch;
+      color: var(--accent-blue);
+      animation: blink 0.8s steps(1, end) infinite;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue), #3b82d0);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      color: #ffffff;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 18px;
+    }
+
+    .section-intro {
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin-bottom: 26px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: min(220px, 60vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      margin: 0 auto;
+      background: radial-gradient(circle at 35% 35%, #7cb7ff, #235893 58%, #17395e 100%);
+      border: 4px solid #223042;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .avatar::before,
+    .avatar::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(230, 237, 243, 0.92);
+    }
+
+    .avatar::before {
+      top: 25%;
+      width: 34%;
+      height: 34%;
+    }
+
+    .avatar::after {
+      top: 56%;
+      width: 58%;
+      height: 38%;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      background: #121922;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.08rem;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      border: 1px solid #2f4a6a;
+      background: rgba(88, 166, 255, 0.1);
+      color: #aad2ff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+    }
+
+    .skills-grid .card:nth-child(2n) .chip {
+      border-color: #5c3f35;
+      background: rgba(247, 129, 102, 0.1);
+      color: #ffc5b8;
+    }
+
+    .project-links {
+      margin-top: 14px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .project-links a {
+      font-weight: 600;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #0d141d;
+      color: var(--text-primary);
+      padding: 12px;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 2px solid rgba(88, 166, 255, 0.35);
+      border-color: #2d5f96;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      color: var(--text-secondary);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes heroEnter {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @media (min-width: 760px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .nav-links {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        border-bottom: none;
+        background: transparent;
+      }
+
+      .about-grid {
+        grid-template-columns: 280px 1fr;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr 1.3fr;
+      }
+
+      .footer-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#hero" class="brand">Chandrakanth Pokuru</a>
+      <button class="menu-toggle" aria-expanded="false" aria-label="Toggle navigation menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="nav-menu" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<header>
-    <h1>About Me</h1>
-</header>
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-content">
+        <p class="eyebrow">Welcome to my portfolio</p>
+        <h1>Chandrakanth Pokuru</h1>
+        <p class="tagline"><span id="typing-text" aria-live="polite"></span><span class="cursor">|</span></p>
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+      </div>
+    </section>
 
-<main>
-    <h2>Hello! I'm Chandrakanth Pokuru</h2>
-    <p>Welcome to my personal webpage! I'm a passionate software developer and tech enthusiast with a love for pushing the boundaries of innovation.</p>
-    
-    <h3>Background</h3>
-    <p>I'm experienced in various fields such as AI, web development, and open-source projects. I've worked on numerous projects where I combined creativity with technology to build impactful solutions.</p>
-    
-    <h3>Get in Touch</h3>
-    <p>Feel free to connect with me on <a href="https://github.com/cpokuru" target="_blank">GitHub</a> or reach out via email at <a href="mailto:cpokuru@example.com">cpokuru@example.com</a>.</p>
-</main>
+    <section id="about" class="fade-in">
+      <div class="container about-grid">
+        <div class="avatar" role="img" aria-label="Profile avatar placeholder"></div>
+        <div>
+          <h2 class="section-title">About</h2>
+          <p class="section-intro">I'm a passionate software developer and tech enthusiast with a love for pushing the boundaries of innovation. I've worked on numerous projects where I combined creativity with technology to build impactful solutions.</p>
+        </div>
+      </div>
+    </section>
 
+    <section id="skills" class="fade-in">
+      <div class="container">
+        <h2 class="section-title">Skills</h2>
+        <p class="section-intro">A blend of engineering foundations and modern tooling across software, AI, and deployment workflows.</p>
+        <div class="grid skills-grid">
+          <article class="card">
+            <h3>Languages</h3>
+            <p>Writing maintainable, production-ready code for automation and applications.</p>
+            <div class="chips">
+              <span class="chip">Python</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">HTML/CSS</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>AI/ML</h3>
+            <p>Applying machine learning techniques to solve practical, high-impact problems.</p>
+            <div class="chips">
+              <span class="chip">Model Prototyping</span>
+              <span class="chip">Data Analysis</span>
+              <span class="chip">Prompt Engineering</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Web Development</h3>
+            <p>Building responsive and accessible front-end experiences with clean architecture.</p>
+            <div class="chips">
+              <span class="chip">Responsive UI</span>
+              <span class="chip">REST APIs</span>
+              <span class="chip">Accessibility</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Open Source</h3>
+            <p>Collaborating on community-driven repositories and iterative improvement.</p>
+            <div class="chips">
+              <span class="chip">Git/GitHub</span>
+              <span class="chip">Code Reviews</span>
+              <span class="chip">Documentation</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Cloud/DevOps</h3>
+            <p>Shipping software reliably with automation, CI pipelines, and deployment hygiene.</p>
+            <div class="chips">
+              <span class="chip">GitHub Actions</span>
+              <span class="chip">Docker</span>
+              <span class="chip">Monitoring</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="fade-in">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-intro">Selected work examples. More can be found on GitHub.</p>
+        <div class="grid projects-grid">
+          <article class="card">
+            <h3>AI Assistant Dashboard</h3>
+            <p>A conversational dashboard concept for summarizing project insights and progress metrics.</p>
+            <div class="chips">
+              <span class="chip">Python</span>
+              <span class="chip">LLMs</span>
+              <span class="chip">Data Viz</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/cpokuru" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Developer Portfolio Starter</h3>
+            <p>A lightweight, static portfolio template optimized for GitHub Pages deployment.</p>
+            <div class="chips">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/cpokuru" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Open Source Automation</h3>
+            <p>Automation scripts to streamline issue triage, release notes, and contribution workflows.</p>
+            <div class="chips">
+              <span class="chip">GitHub API</span>
+              <span class="chip">CI/CD</span>
+              <span class="chip">DevOps</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/cpokuru" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="fade-in">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-intro">Let’s connect for collaboration, ideas, or new opportunities.</p>
+        <div class="contact-grid">
+          <div class="card contact-list">
+            <a href="mailto:cpokuru@example.com">cpokuru@example.com</a>
+            <a href="https://github.com/cpokuru" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#" aria-label="LinkedIn profile placeholder">LinkedIn (Coming Soon)</a>
+          </div>
+          <form class="card" action="mailto:cpokuru@example.com" method="post" enctype="text/plain">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <p>&copy; <span id="year"></span> Chandrakanth Pokuru. All rights reserved.</p>
+      <div class="socials">
+        <a href="https://github.com/cpokuru" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:cpokuru@example.com">Email</a>
+        <a href="#" aria-label="LinkedIn profile placeholder">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = navMenu.querySelectorAll('a');
+
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      navMenu.classList.toggle('show');
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('show');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const taglineText = 'Software Developer & Tech Enthusiast';
+    const typingNode = document.getElementById('typing-text');
+    let typingIndex = 0;
+
+    function typeTagline() {
+      if (typingIndex <= taglineText.length) {
+        typingNode.textContent = taglineText.slice(0, typingIndex);
+        typingIndex += 1;
+        setTimeout(typeTagline, 70);
+      }
+    }
+
+    typeTagline();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    document.querySelectorAll('.fade-in').forEach((section) => observer.observe(section));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-
